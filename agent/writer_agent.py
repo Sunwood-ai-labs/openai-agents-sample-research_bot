@@ -1,7 +1,9 @@
 # Agent used to synthesize a final report from the individual summaries.
 from pydantic import BaseModel
+from openai import OpenAIChatCompletionsModel
 
 from agents import Agent
+from .provider import create_client, create_model_settings
 
 PROMPT = (
     "You are a senior researcher tasked with writing a cohesive report for a research query. "
@@ -25,9 +27,16 @@ class ReportData(BaseModel):
     """Suggested topics to research further"""
 
 
+# OpenAIクライアントとモデル名を取得
+client, model_name = create_client("gpt-4")
+
 writer_agent = Agent(
     name="WriterAgent",
     instructions=PROMPT,
-    model="o3-mini",
+    model=OpenAIChatCompletionsModel(
+        model=model_name,
+        openai_client=client,
+    ),
+    model_settings=create_model_settings(temperature=0.7),
     output_type=ReportData,
 )
