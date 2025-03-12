@@ -7,10 +7,10 @@ from rich.console import Console
 
 from agents import Runner, custom_span, gen_trace_id, trace
 
-from .agents.planner_agent import WebSearchItem, WebSearchPlan, planner_agent
-from .agents.search_agent import search_agent
-from .agents.writer_agent import ReportData, writer_agent
-from .printer import Printer
+from agent.planner_agent import WebSearchItem, WebSearchPlan, planner_agent
+from agent.search_agent import search_agent
+from agent.writer_agent import ReportData, writer_agent
+from printer import Printer
 
 
 class ResearchManager:
